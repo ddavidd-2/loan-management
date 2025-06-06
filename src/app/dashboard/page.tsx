@@ -3,7 +3,8 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { User } from "@/generated/prisma";
-
+import LoanList from "@/ui/loans/loanlist";
+import { Suspense } from "react";
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -25,7 +26,7 @@ export default async function Home() {
       <div>
         <div>You must be logged in to view your Dashboard</div>
         <Button asChild>
-          <Link href='/[auth]/signin'>Sign In</Link>
+          <Link href='/auth/signin'>Sign In</Link>
         </Button>
         <Button asChild>
           <Link href='/'>Back to Home</Link>
@@ -35,8 +36,15 @@ export default async function Home() {
   }
 
   return (
-    <div>
-      {`${user.username}'s Dashboard`}
+    <div className="flex flex-col items-center">
+      <div>
+        Welcome Back, {`${user.firstName} ${user.lastName}`}!
+      </div>
+      <div>
+        <Suspense>
+          <LoanList user={user}/>
+        </Suspense>
+      </div>
     </div>
   );
 }

@@ -9,7 +9,7 @@ export default function Home() {
         <div>All your Loan Management needs in <span className='font-bold'>One Place</span></div>
         <div>
             <Button asChild>
-              <Link href='/signup'>Get Started</Link>
+              <Link href='/auth/signup'>Get Started</Link>
             </Button>
         </div>
       </div>
