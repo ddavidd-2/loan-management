@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link';
 import { IoPersonSharp } from "react-icons/io5";
+import { logout } from '@/lib/actions';
 
 export default async function LoginStatus() {
   const cookieStore = await cookies();
@@ -43,7 +44,7 @@ export default async function LoginStatus() {
           <Button variant="outline"><IoPersonSharp /></Button>
         }
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="start">
+      <DropdownMenuContent className="" align="start">
         {user ?
           <> 
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -59,13 +60,19 @@ export default async function LoginStatus() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              Log out
+              <form action={logout}>
+                <button type="submit">
+                  Log out
+                </button>
+              </form>
             </DropdownMenuItem>
           </>
           :
           <>
-            <DropdownMenuItem>
-              Sign In 
+            <DropdownMenuItem asChild>
+              <Link href='/auth/signin'>
+                Sign In 
+              </Link>
             </DropdownMenuItem>
           </>
         }

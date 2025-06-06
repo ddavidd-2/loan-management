@@ -23,7 +23,7 @@ export function LoginForm() {
     <Card className="w-full max-w-sm">
       <form action={formAction} className='flex flex-col gap-2'>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Sign in to your account</CardTitle>
           <CardDescription>
             Enter your username and password to your account
           </CardDescription>
@@ -58,9 +58,12 @@ export function LoginForm() {
               </div>
             </div>
           <div>
-            {(state.errors?.username || state.errors?.password) &&
+            {(state.errors?.username || state.errors?.password) ?
               <CardDescription className="text-red-500">
                 {state.message}
+              </CardDescription>
+              :
+              <CardDescription aria-hidden="true">
               </CardDescription>
             }
           </div>

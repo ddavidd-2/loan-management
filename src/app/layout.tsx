@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { inter } from "./ui/fonts";
-import '@/app/ui/global.css';
-
+import { inter } from "../ui/fonts";
+import '@/ui/global.css';
+import { NavBar } from "@/ui/NavBar/navbar";
+import LoginStatus from "@/ui/NavBar/login-status";
 
 export const metadata: Metadata = {
   title: "Loan Management App",
@@ -18,7 +19,10 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
-        {children}
+        <div className='flex flex-col'>
+          <NavBar />
+          {children}
+        </div>
       </body>
     </html>
   );
