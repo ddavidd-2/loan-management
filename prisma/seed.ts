@@ -1,10 +1,11 @@
-import { PrismaClient, Prisma, LoanStatus } from '../src/app/generated/prisma';
+import { PrismaClient, Prisma, LoanStatus } from '../src/generated/prisma';
 
 const prisma = new PrismaClient();
 
 const userData: Prisma.UserCreateInput[] = [
   {
     username: 'jdoe',
+    password: 'password',
     firstName: 'John',
     lastName: 'Doe', 
     loans: {
