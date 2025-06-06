@@ -1,0 +1,45 @@
+import { Loan } from "@/generated/prisma";
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import Link from 'next/link';
+import { IoIosSettings } from 'react-icons/io';
+
+export default async function LoanMenu({ 
+  loan 
+} : { 
+  loan: Loan 
+}) {
+
+  const loanId = loan.id;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline"><IoIosSettings /></Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="" align="start">
+        <DropdownMenuGroup>
+          <DropdownMenuItem asChild>
+            <Link href='/dashboard/loan/update'>
+              Update
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
+}

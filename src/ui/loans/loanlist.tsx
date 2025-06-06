@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { debtRemaining, LoanDetails } from "@/lib/utils";
+import LoanMenu from "./loanmenu";
 
 export default async function LoanList({ user } : { user : User }) {
   const loans: Loan[] = await prisma.loan.findMany({
@@ -18,7 +19,6 @@ export default async function LoanList({ user } : { user : User }) {
       userId: user.id,
     }
   });
-
 
   return (
     <Table>
@@ -32,7 +32,7 @@ export default async function LoanList({ user } : { user : User }) {
           <TableHead>Months</TableHead>
           <TableHead>Remaining</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead className="text-right">Signed</TableHead>
+          <TableHead>Signed</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -54,34 +54,17 @@ export default async function LoanList({ user } : { user : User }) {
               <TableCell className="font-medium text-right">{debt || 0}</TableCell>
               <TableCell className="font-medium text-right">{loan.status}</TableCell>
               <TableCell className="font-medium text-right">{loan.createdAt.toDateString()}</TableCell>
+              <TableCell className="font-medium text-right"><LoanMenu loan={loan}/></TableCell>
             </TableRow>
           );
         })}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={7}>Total</TableCell>
+          <TableCell colSpan={8}>Total</TableCell>
           <TableCell className="text-right">$1000</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
   );
 } 
-
-
-/* loan schema 
-model Loan {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int
-  debtor String 
-  amount Float
-  interestRate Float
-  duration Int  // duration in Months
-  amountPaid Float
-  status LoanStatus @default(PENDING)
-  createdAt   DateTime @default(now())
-  lastUpdated DateTime @updatedAt
-  
-}
-  */

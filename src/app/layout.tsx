@@ -15,11 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className='h-full'>
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.className} h-full antialiased`}
       >
-        <div className='flex flex-col'>
+        <div className='min-h-screen flex flex-col'>
           <NavBar />
           {children}
         </div>
