@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma, LoanStatus } from '../app/generated/prisma';
+import { PrismaClient, Prisma, LoanStatus } from '../src/app/generated/prisma';
 
 const prisma = new PrismaClient();
 
