@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { User } from "@/generated/prisma";
 import LoanList from "@/ui/loans/loanlist";
 import { Suspense } from "react";
+import EmptyLoanList from "@/ui/skeletons";
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -36,12 +37,17 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <div>
+    <div className="mt-2 flex flex-col items-center gap-4">
+      <div className="font-bold">
         Welcome Back, {`${user.firstName} ${user.lastName}`}!
       </div>
+      <Button asChild>
+        <Link href='/dashboard/loan/create'>
+          Add Loan
+        </Link>
+      </Button>
       <div>
-        <Suspense>
+        <Suspense fallback={<EmptyLoanList />}>
           <LoanList user={user}/>
         </Suspense>
       </div>

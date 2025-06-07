@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link';
 import { IoIosSettings } from 'react-icons/io';
+import { LoanDelete } from "./deleteloan";
 
 export default async function LoanMenu({ 
   loan 
@@ -33,9 +34,12 @@ export default async function LoanMenu({
       <DropdownMenuContent className="" align="start">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href='/dashboard/loan/update'>
-              Update
+            <Link href={`/dashboard/loan/${loanId}/edit`}>
+              Edit
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <LoanDelete loanId={loanId} />
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

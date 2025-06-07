@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
   }
 
   /* redirect to /signin to /dashboard if already logged in */
-  if (session && pathName.startsWith('/auth/signin')) {
+  if (session && pathName.startsWith('/auth')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -20,5 +20,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/auth/signin', '/dashboard/:path*'],
+  matcher: ['/auth/:path*', '/dashboard/:path*'],
 };

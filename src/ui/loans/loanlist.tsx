@@ -33,10 +33,11 @@ export default async function LoanList({ user } : { user : User }) {
           <TableHead>Remaining</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Signed</TableHead>
+          <TableHead className="text-right">Menu</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {loans.map((loan) => {
+        {loans.sort((a,b) => a.id - b.id).map((loan) => {
           const debtDetails: LoanDetails = { 
             principal: loan.amount, 
             interestRate: loan.interestRate, 
@@ -61,8 +62,7 @@ export default async function LoanList({ user } : { user : User }) {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={8}>Total</TableCell>
-          <TableCell className="text-right">$1000</TableCell>
+          <TableCell colSpan={9}></TableCell>
         </TableRow>
       </TableFooter>
     </Table>
