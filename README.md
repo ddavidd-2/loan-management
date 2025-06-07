@@ -14,14 +14,6 @@ copy .env file with your prisma postgreSQL db url
 cp .env.example .env
 ```
 
-run
-```bash
-opnssl rand -base64 32
-```
-
-to generate AUTH_SECRET key
-
-
 run to generate initial prisma migration
 ```bash
 npx prisma generate
