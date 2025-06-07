@@ -14,6 +14,14 @@ copy .env file with your postgreSQL db url
 cp .env.example .env
 ```
 
+run
+```bash
+opnssl rand -base64 32
+```
+
+to generate AUTH_SECRET key
+
+
 generate initial migration
 ```bash
 npx prisma generate
