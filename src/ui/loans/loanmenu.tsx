@@ -1,4 +1,4 @@
-import { Loan } from "@/generated/prisma";
+import { Loan } from "@/app/generated/prisma";
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,

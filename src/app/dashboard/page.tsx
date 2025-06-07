@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { User } from "@/generated/prisma";
+import { User } from "@/app/generated/prisma";
 import LoanList from "@/ui/loans/loanlist";
 import { Suspense } from "react";
 import EmptyLoanList from "@/ui/skeletons";

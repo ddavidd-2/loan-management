@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import { LoanStatus } from '@/generated/prisma';
+import { LoanStatus } from '@/app/generated/prisma';
 
 const FormSchema = z.object({
   username: z.string().min(1, 'username is required'),

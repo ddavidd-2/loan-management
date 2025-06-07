@@ -1,6 +1,6 @@
 import prisma from '@/lib/prisma';
 import { cookies } from 'next/headers';
-import { User } from '@/generated/prisma';
+import { User } from '@/app/generated/prisma';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,

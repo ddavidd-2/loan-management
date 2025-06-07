@@ -1,4 +1,4 @@
-import { User, Loan} from "@/generated/prisma";
+import { User, Loan} from "@/app/generated/prisma";
 import prisma from "@/lib/prisma";
 import {
   Table,

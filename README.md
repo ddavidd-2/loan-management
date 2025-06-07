@@ -16,7 +16,6 @@ cp .env.example .env
 
 run to generate initial prisma migration
 ```bash
-npx prisma generate
 npx prisma migrate dev --name init
 ```
 
