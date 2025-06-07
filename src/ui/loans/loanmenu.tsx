@@ -34,6 +34,11 @@ export default async function LoanMenu({
       <DropdownMenuContent className="" align="start">
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
+            <Link href={`/dashboard/loan/${loanId}`}>
+              Detailed View
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
             <Link href={`/dashboard/loan/${loanId}/edit`}>
               Edit
             </Link>

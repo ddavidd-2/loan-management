@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/table"
 import { debtRemaining, LoanDetails } from "@/lib/utils";
 import LoanMenu from "./loanmenu";
+import Link from "next/link";
 
 export default async function LoanList({ user } : { user : User }) {
   const loans: Loan[] = await prisma.loan.findMany({
@@ -45,18 +46,23 @@ export default async function LoanList({ user } : { user : User }) {
             amountPaid: loan.amountPaid,
           }
           const debt = debtRemaining(debtDetails);
+          const formattedDate = new Date(loan.createdAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
           return (
-            <TableRow key={loan.id}>
-              <TableCell className="font-medium">{loan.id}</TableCell>
-              <TableCell className="font-medium">{loan.debtor}</TableCell>
-              <TableCell className="font-medium text-right">{loan.amount}</TableCell>
-              <TableCell className="font-medium text-right">{loan.interestRate}</TableCell>
-              <TableCell className="font-medium text-right">{loan.duration}</TableCell>
-              <TableCell className="font-medium text-right">{debt || 0}</TableCell>
-              <TableCell className="font-medium text-right">{loan.status}</TableCell>
-              <TableCell className="font-medium text-right">{loan.createdAt.toDateString()}</TableCell>
-              <TableCell className="font-medium text-right"><LoanMenu loan={loan}/></TableCell>
-            </TableRow>
+              <TableRow key={loan.id}>
+                <TableCell className="font-medium">{loan.id}</TableCell>
+                <TableCell className="font-medium">{loan.debtor}</TableCell>
+                <TableCell className="font-medium text-right">{loan.amount}</TableCell>
+                <TableCell className="font-medium text-right">{loan.interestRate}</TableCell>
+                <TableCell className="font-medium text-right">{loan.duration}</TableCell>
+                <TableCell className="font-medium text-right">{debt || 0}</TableCell>
+                <TableCell className="font-medium text-right">{loan.status}</TableCell>
+                <TableCell className="font-medium text-right">{formattedDate}</TableCell>
+                <TableCell className="font-medium text-right"><LoanMenu loan={loan}/></TableCell>
+              </TableRow>
           );
         })}
       </TableBody>

@@ -1,7 +1,11 @@
-import { cookies, headers } from 'next/headers';
+/**
+ * DETAILED VIEW OF A SPECIFIC LOAN
+ */
+
+import { cookies } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 import prisma from '@/lib/prisma';
-import { EditLoan } from '@/ui/loans/editloan';
+import { DetailedLoan } from '@/ui/loans/detailedloan';
 
 type PageProps = {
   params: {
@@ -33,6 +37,7 @@ export default async function Page({ params }: PageProps) {
       amountPaid: true,
       userId: true,
       status: true,
+      createdAt: true,
     },
   });
 
@@ -40,22 +45,18 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  const backUrl = (await headers()).get('referer') ?? '/dashboard';
-
   return (
-    <main className="mt-auto mb-auto flex items-center justify-center flex-grow">
-      <EditLoan
-        loanId={loan.id}
-        initialData={{
-          debtor: loan.debtor,
-          amount: loan.amount,
-          interestRate: loan.interestRate,
-          duration: loan.duration,
-          amountPaid: loan.amountPaid,
-          status: loan.status,
-        }}
-        backUrl={backUrl}
-      />
-    </main>
+    <DetailedLoan
+      loanData={{
+        id: loan.id,
+        debtor: loan.debtor,
+        amount: loan.amount,
+        interestRate: loan.interestRate,
+        duration: loan.duration,
+        amountPaid: loan.amountPaid,
+        status: loan.status,
+        createdAt: loan.createdAt
+      }}
+    />
   );
 }

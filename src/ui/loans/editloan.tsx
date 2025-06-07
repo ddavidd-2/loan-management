@@ -32,9 +32,10 @@ type EditLoanFormProps = {
     amountPaid: number;
     status: 'PENDING' | 'APPROVED' | 'REJECTED' | 'PAID';
   };
+  backUrl: string;
 };
 
-export function EditLoan({ loanId, initialData }: EditLoanFormProps) {
+export function EditLoan({ loanId, initialData, backUrl }: EditLoanFormProps) {
   const initState: EditLoanState = { message: null, errors: {} };
   const [state, formAction] = useActionState(editLoan, initState);
 
@@ -46,7 +47,7 @@ export function EditLoan({ loanId, initialData }: EditLoanFormProps) {
           <CardDescription>Modify the loan details below.</CardDescription>
           <CardAction>
             <Button variant="link">
-              <Link href="/dashboard">Back to Dashboard</Link>
+              <Link href={backUrl}>Back</Link>
             </Button>
           </CardAction>
         </CardHeader>

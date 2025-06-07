@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export function NavBar() {
   return (
-    <div className="flex flex-row justify-between p-0.5">
+    <div className="flex flex-row justify-between p-0.5 border-b border-gray-300">
       <div className='font-bold text-2xl'>
         LMA
       </div>
