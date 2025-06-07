@@ -54,9 +54,6 @@ export default async function LoginStatus() {
                   Dashboard
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                Settings
-              </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem>

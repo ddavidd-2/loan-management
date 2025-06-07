@@ -22,7 +22,7 @@ export default async function LoanList({ user } : { user : User }) {
   });
 
   return (
-    <Table>
+    <Table className='bg-white rounded'>
       <TableCaption>A list of your current loans.</TableCaption>
       <TableHeader>
         <TableRow>

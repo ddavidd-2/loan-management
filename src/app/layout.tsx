@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en" className='h-full'>
       <body
-        className={`${inter.className} h-full antialiased`}
+        className={`${inter.className} h-full antialiased bg-gradient-to-b from-gray-300 to-white`}
       >
         <div className='min-h-screen flex flex-col'>
           <NavBar />
