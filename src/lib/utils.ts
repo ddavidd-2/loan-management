@@ -7,6 +7,42 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export type FullLoanDetails = {
+  debtor: string;
+  amount: number;
+  interestRate: number;
+  duration: number;
+  amountPaid: number;
+  status?: "PENDING" | "APPROVED" | "PAID" | "REJECTED";
+  createdAt?: Date;
+}
+
+export function generateFakeLoans(n: number): FullLoanDetails[] {
+  const names = ["Jane Smith", "Bob Ross", "Obama", "Jerry"];
+  const statuses: FullLoanDetails["status"][] = ["PENDING", "APPROVED", "REJECTED"];
+  const loans: FullLoanDetails[] = [];
+
+  for (let i = 0; i < n; i++) {
+    const debtor = names[Math.floor(Math.random() * names.length)];
+    const amount = 1000 + Math.floor(Math.random() * 91) * 100; // 1000–10000 in steps of 100
+    const interestRate = +(0.5 + Math.floor(Math.random() * 41) * 0.1).toFixed(1); // 0.5–4.5 in steps of 0.1
+    const duration = 6 + Math.floor(Math.random() * 8) * 6; // 6–48 in steps of 6
+    const amountPaid = 0;
+    const status = statuses[Math.floor(Math.random() * statuses.length)];
+
+    loans.push({
+      debtor,
+      amount,
+      interestRate,
+      duration,
+      amountPaid,
+      status,
+    });
+  }
+
+  return loans;
+}
+
 export type LoanDetails = {
   principal: number;       // initial loan amount
   interestRate: number;
