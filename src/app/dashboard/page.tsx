@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { User } from "@/app/generated/prisma";
+import { Loan, User } from "@/app/generated/prisma";
 import LoanList from "@/ui/loans/loanlist";
 import { Suspense } from "react";
 import EmptyLoanList from "@/ui/skeletons";
@@ -36,6 +36,12 @@ export default async function Home() {
     )
   }
 
+  const loans: Loan[] = await prisma.loan.findMany({
+    where: {
+      userId: user.id,
+    }
+  });
+
   return (
     <div className="mt-2 flex flex-col items-center gap-4">
       <div className="font-bold">
@@ -48,7 +54,10 @@ export default async function Home() {
       </Button>
       <div>
         <Suspense fallback={<EmptyLoanList />}>
-          <LoanList user={user}/>
+          <LoanList 
+            user={user}
+            loans={loans}
+          />
         </Suspense>
       </div>
     </div>

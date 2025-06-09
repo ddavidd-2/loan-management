@@ -18,7 +18,7 @@ import Link from 'next/link';
 import { IoIosSettings } from 'react-icons/io';
 import { LoanDelete } from "./deleteloan";
 
-export default async function LoanMenu({ 
+export default function LoanMenu({ 
   loan 
 } : { 
   loan: Loan 

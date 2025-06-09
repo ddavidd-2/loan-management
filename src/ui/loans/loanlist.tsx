@@ -1,5 +1,6 @@
+'use client';
+
 import { User, Loan} from "@/app/generated/prisma";
-import prisma from "@/lib/prisma";
 import {
   Table,
   TableBody,
@@ -10,16 +11,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { debtRemaining, LoanDetails } from "@/lib/utils";
+import { debtRemaining, LoanDetails, getFilteredLoans, LOANS_PER_PAGE } from "@/lib/utils";
 import LoanMenu from "./loanmenu";
 import Link from "next/link";
+import Pagination from "./pagination";
+import { usePathname, useSearchParams } from "next/navigation";
 
-export default async function LoanList({ user } : { user : User }) {
-  const loans: Loan[] = await prisma.loan.findMany({
-    where: {
-      userId: user.id,
-    }
-  });
+export default function LoanList({ user, loans } : { user : User, loans: Loan[] }) {
+
+  const totalPages = Math.ceil(loans.length / LOANS_PER_PAGE);
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const pageParam = Number(searchParams.get('page')) || 1;
+  const currentPage = pageParam > totalPages ? totalPages : pageParam;
+
+  const createPageURL = (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', pageNumber.toString());
+    return `${pathname}?${params.toString()}`;
+  }
+
+  const filteredLoans = getFilteredLoans(loans, currentPage);
 
   return (
     <Table className='bg-white rounded'>
@@ -38,7 +51,7 @@ export default async function LoanList({ user } : { user : User }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {loans.sort((a,b) => a.id - b.id).map((loan) => {
+        {filteredLoans.sort((a,b) => a.id - b.id).map((loan) => {
           const debtDetails: LoanDetails = { 
             principal: loan.amount, 
             interestRate: loan.interestRate, 
@@ -54,7 +67,7 @@ export default async function LoanList({ user } : { user : User }) {
           return (
               <TableRow key={loan.id}>
                 <TableCell className="font-medium">{loan.id}</TableCell>
-                <TableCell className="font-medium">{loan.debtor}</TableCell>
+                <TableCell className="font-medium max-w-[130px] truncate overflow-hidden whitespace-nowrap">{loan.debtor}</TableCell>
                 <TableCell className="font-medium text-right">{loan.amount}</TableCell>
                 <TableCell className="font-medium text-right">{loan.interestRate}</TableCell>
                 <TableCell className="font-medium text-right">{loan.duration}</TableCell>
@@ -68,9 +81,18 @@ export default async function LoanList({ user } : { user : User }) {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={9}></TableCell>
+          <TableCell colSpan={9}>
+            <Pagination 
+              totalPages={totalPages}
+              currentPage={currentPage}
+              createPageURL={createPageURL}
+            />
+          </TableCell>
         </TableRow>
       </TableFooter>
     </Table>
   );
 } 
+
+// todo: get total pages, 
+// filtered loan array based on page number
